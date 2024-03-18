@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Cpp_Trials",
-      "program": "d:/Cpp_Trials/build/Debug/outDebug",
+      "cwd": "d:/Github/Cpp_Trials/templatesExp/src",
+      "program": "d:/Github/Cpp_Trials/templatesExp/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
