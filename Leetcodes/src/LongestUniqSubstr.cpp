@@ -1,4 +1,3 @@
-// python.cpp
 // #include <iostream>
 // #include <vector>
 // #include <map>
@@ -159,25 +158,35 @@ void print(const std::unordered_set<T>& s) {
     }
     std::cout << "}";
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int main() {
-    std::vector<int> vec = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-
-    auto sliced1 = splice(vec, 2, 5); // From index 2 to 5
-    print(sliced1);
-
-    auto sliced2 = splice(vec, -7, -3); // Negative indices work like in Python
-    print(sliced2);
-
-    auto sliced3 = splice(vec, 3); // From index 3 to the end
-    print(sliced3);
+class Solution {
+public:
 
 
-    auto all = splice(vec); // The entire vector
-    print(all);
+    int lengthOfLongestSubstring(string s) {
+        // sliding window
+        int res =0;
+        int anchor=0;
+        int count=0;
 
-    std::string s = "Hello, World!";
-    auto subStr = splice(s);
-    print(subStr);
+        unordered_map<char, int> slidingWindow; 
 
-}
+        for (int i=0; i< s.length(); i++) {
+            print(anchor, i);
+            
+            // duplicate encountered wrt map and the index at which it exists is right of anchor,
+            if (slidingWindow.find(s[i]) !=slidingWindow.end() && anchor<= slidingWindow[s[i]] ){
+                anchor = slidingWindow[s[i]] +1 ;
+            }
+
+            print("inserted",s[i]);
+            slidingWindow[s[i]] = i;
+            res = max(res, i-anchor+1 );
+            print(slidingWindow);
+
+            cout<<endl;
+        }
+        return res;
+    }
+};
