@@ -15,6 +15,10 @@ Explanation: T is "aa" which its length is 2.
 */
 
 
+int main(){
+    
+}
+
 
 
 
