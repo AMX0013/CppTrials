@@ -1,10 +1,12 @@
+#include <vector>
+#include <string>
+using namespace std;
 #include <iostream>
 #include <vector>
 #include <map>
 #include <tuple>
 #include <utility> // For std::pair
 
-using namespace std;
 // Function to end recursion
 void print_end() {
     std::cout << std::endl;
@@ -87,27 +89,48 @@ void print(const std::map<K, V>& map) {
     std::cout << "}";
 }
 
+class Solution {
+public:
+    bool is_valid_path (int i, int j, int m, int n, int char_idx, vector<vector<char>>& board, string& word)
+    {
+        if (i > -1 && i < m && j > -1 && j < n && board [i][j] == word [char_idx])
+        {
+            if (int next_char_idx = char_idx + 1; next_char_idx == word.size ())
+            {
+                return true;
+            }
+            else
+            {
+                char temp = board [i][j];
+                board [i][j] = '*';
+                if (is_valid_path (i    , j + 1 , m, n, next_char_idx, board, word)) return true;
+                if (is_valid_path (i    , j - 1 , m, n, next_char_idx, board, word)) return true;
+                if (is_valid_path (i + 1, j     , m, n, next_char_idx, board, word)) return true;
+                if (is_valid_path (i - 1, j     , m, n, next_char_idx, board, word)) return true;
+                board [i][j] = temp;
+            }
+        }
 
+        return false;
+    }
 
+    bool exist(vector<vector<char>>& board, string word) 
+    {
+        int m = board.size ();
+        int n = board [0].size ();
 
+        for (int i = 0; i < m; ++i)
+            for (int j = 0; j < n; ++j)
+                if (is_valid_path (i, j, m, n,  0, board, word)) return true;
+    
+        return false;    
+    }
+};
 
-
-// Specialization for Vectors of Vectors (Multi-Dimensional Vectors)
-// This specialization is already covered by our generic std::vector specialization due to its recursive implementation, which can nicely handle multi-dimensional vectors.
-
-// USAGE
-int main() {
-    // Single-dimensional vector
-    std::vector<int> vec = {1, 2, 3, 4, 5};
-    print(vec);
-
-    // Multi-dimensional vector
-    std::vector<std::vector<std::vector<int>>> multiVec = { {{1, 2}, {3, 4}, {5, 6}}, {{11, 21}, {13, 14}, {15, 16}} };
-    print(multiVec);
-
-    // Map
-    std::map<std::string, int> map = {{"one", 1}, {"two", 2}, {"three", 3}};
-    print(map);
-
+int main(){
+    vector<vector<char>> board = {{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}};
+    string word = "ABCCED";
+    bool result = Solution.exist(board, word);
+    cout << (result ? "True" : "False") << endl;
     return 0;
 }
